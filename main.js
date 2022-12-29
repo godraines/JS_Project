@@ -42,13 +42,11 @@ function setupKeyboardListener(){
     document.addEventListener("keydown", function(event){
         // this will keep what keys are pushed
         keysDown[event.key] = true;
-        console.log("asd", keysDown);
     });
 
     document.addEventListener("keyup", function(event){
         // this will delete the pushed key when it is off
         delete keysDown[event.key];
-        console.log("sfddsf", keysDown);
     });
 }
 
@@ -61,6 +59,15 @@ function update(){
     // left key
     if( 'ArrowLeft' in keysDown ){
         spaceshipX -= 2;
+    }
+
+    // limit the ship's movement up to the canvas size
+    if( spaceshipX <= 0 ){
+        spaceshipX = 0;
+    }
+
+    if( spaceshipX >= canvas.width-64 ){
+        spaceshipX = canvas.width-64;
     }
 }
 
