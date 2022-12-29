@@ -30,28 +30,55 @@ let score = 0;
 
 // setting bullet position
 // change this to class
-function Bullet(){
-    this.x = 0;
-    this.y = 0;
-    this.init = function(){
-        this.x = spaceshipX+18;
-        this.y = spaceshipY;
-        this.alive = true;  // alive bullet
-        bulletList.push(this);
+// function Bullet(){
+//     this.x = 0;
+//     this.y = 0;
+//     this.init = function(){
+//         this.x = spaceshipX+18;
+//         this.y = spaceshipY;
+//         this.alive = true;  // alive bullet
+//         bulletList.push(this);
+//     };
+
+//     // bullet speed
+//     this.update = function(){
+//         this.y -= 2;
+//     };
+
+//     this.checkHit = function(){
+//         for( let i = 0; i , i < enemyList.length; i++ ){
+//             // bullet y <= enemy y && bullet x >= enemy x && bullet x <= enemy x + 40
+//             if( this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x+40 ){
+//                 score ++;
+//                 this.alive = false; // dead bullet
+//                 enemyList.splice(i, 1); // take off dead enemy
+//             };
+//         };
+//     };
+// }
+
+class Bullet {
+    constructor(){
+        this.x = 0;
+        this.y = 0;
+        this.init = function(){
+            this.x = spaceshipX+18;
+            this.y = spaceshipY;
+            this.alive = true;
+            bulletList.push(this);
+        };
     };
 
-    // bullet speed
-    this.update = function(){
-        this.y -= 2;
+    update(){
+        this.y -=2;
     };
 
-    this.checkHit = function(){
-        for( let i = 0; i , i < enemyList.length; i++ ){
-            // bullet y <= enemy y && bullet x >= enemy x && bullet x <= enemy x + 40
+    checkHit(){
+        for( let i = 0; i < enemyList.length; i++ ){
             if( this.y <= enemyList[i].y && this.x >= enemyList[i].x && this.x <= enemyList[i].x+40 ){
-                score ++;
-                this.alive = false; // dead bullet
-                enemyList.splice(i, 1); // take off dead enemy
+                score++;
+                this.alive = false;
+                enemyList.splice(i, 1);
             };
         };
     };
@@ -64,22 +91,41 @@ function generateRandomValue(min, max){
 
 let enemyList = [];
 
-function enemy(){
-    this.x = 0;
-    this.y = 0;
-    this.init = function(){
-        this.x = generateRandomValue(0, canvas.width-64);
+// function enemy(){
+//     this.x = 0;
+//     this.y = 0;
+//     this.init = function(){
+//         this.x = generateRandomValue(0, canvas.width-64);
+//         this.y = 0;
+//         enemyList.push(this);
+//     };
+
+//     // enemy speed
+//     this.update = function(){
+//         this.y += 1;
+
+//         if( this.y >= canvas.height-64 ){
+//              gameOver = true;
+//         };
+//     };
+// }
+
+class enemy {
+    constructor(){
+        this.x = 0;
         this.y = 0;
-        enemyList.push(this);
+        this.init = function(){
+            this.x = generateRandomValue(0, canvas.width-64);
+            this.y = 0;
+            enemyList.push(this);
+        };
     };
 
-    // enemy speed
-    this.update = function(){
+    update(){
         this.y += 1;
 
         if( this.y >= canvas.height-64 ){
-             gameOver = true;
-             console.log("gameover");
+            gameOver = true;
         };
     };
 }
@@ -115,8 +161,8 @@ function setupKeyboardListener(){
 
         // shotting a bullet when key is up
         if( event.key == " " ){
-            createBullet()
-        }
+            createBullet();
+        };
     });
 }
 
@@ -158,7 +204,7 @@ function update(){
         if( bulletList[i].alive ){
             bulletList[i].update();
             bulletList[i].checkHit();
-        }
+        };
     };
 
     for( let i = 0; i < enemyList.length; i ++ ){
