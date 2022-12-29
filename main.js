@@ -15,7 +15,7 @@ document.body.appendChild(canvas);   // append canvas in body of html
 // create function to call images
 let backgroundImage,spaceshipImage,bulletImage,enemyImage,gameOverImage;
 
-//우주선 좌표 - 계속해서 움직여야 하기 때문에 따로 빼 줌
+//mapping spaceship - it moves constantly
 let spaceshipX = canvas.width/2-32;
 let spaceshipY = canvas.height-64;
 
@@ -42,9 +42,9 @@ function render(){
 }
 
 /* 
-이미지를 계속 호출해야 이미지가 계속 보여짐.
-그러기 위해서 main 함수에 render()  함수를 불러서 이미지를 한번 보여주고
-requestAnimationFrame(main) 함수로 main 함수를 계속해서 불러냄
+to show images, the image should be called constantly
+to do that, call render function in main
+then call main function constantly to using animation function
 */
 function main(){
     render();
@@ -53,3 +53,5 @@ function main(){
 
 loadImage();
 main();
+
+//
