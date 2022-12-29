@@ -19,6 +19,26 @@ let backgroundImage,spaceshipImage,bulletImage,enemyImage,gameOverImage;
 let spaceshipX = canvas.width/2-32;
 let spaceshipY = canvas.height-64;
 
+// save bullet list
+let bulletList = [];
+
+// setting bullet position
+// change this to class
+function Bullet(){
+    this.x = 0;
+    this.y = 0;
+    this.init = function(){
+        this.x = spaceshipX+18;
+        this.y = spaceshipY;
+
+        bulletList.push(this);
+    };
+
+    this.update = function(){
+        this.y -= 2;
+    };
+}
+
 function loadImage(){
     backgroundImage = new Image();
     backgroundImage.src = "images/background.jpg";
@@ -47,7 +67,19 @@ function setupKeyboardListener(){
     document.addEventListener("keyup", function(event){
         // this will delete the pushed key when it is off
         delete keysDown[event.key];
+
+        // shotting a bullet when key is up
+        if( event.key == " " ){
+            createBullet()
+        }
     });
+}
+
+function createBullet(){
+    let b = new Bullet();
+    b.init();
+
+    console.log("new bullet list", bulletList);
 }
 
 function update(){
@@ -69,11 +101,20 @@ function update(){
     if( spaceshipX >= canvas.width-64 ){
         spaceshipX = canvas.width-64;
     }
+
+    // update y value of bullet
+    for( let i = 0; i < bulletList.length; i++){
+        bulletList[i].update()
+    }
 }
 
 function render(){
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(spaceshipImage, spaceshipX, spaceshipY)
+    
+    for( let i = 0; i < bulletList.length; i++){
+        ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+    }
 }
 
 /* 
