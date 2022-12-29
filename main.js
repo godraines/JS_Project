@@ -15,7 +15,7 @@ document.body.appendChild(canvas);   // append canvas in body of html
 // create function to call images
 let backgroundImage,spaceshipImage,bulletImage,enemyImage,gameOverImage;
 
-//mapping spaceship - it moves constantly
+// mapping spaceship - it moves constantly
 let spaceshipX = canvas.width/2-32;
 let spaceshipY = canvas.height-64;
 
@@ -36,6 +36,34 @@ function loadImage(){
     gameOverImage.src = "images/gameover.jpg"
 }
 
+// When press keys
+let keysDown={};
+function setupKeyboardListener(){
+    document.addEventListener("keydown", function(event){
+        // this will keep what keys are pushed
+        keysDown[event.key] = true;
+        console.log("asd", keysDown);
+    });
+
+    document.addEventListener("keyup", function(event){
+        // this will delete the pushed key when it is off
+        delete keysDown[event.key];
+        console.log("sfddsf", keysDown);
+    });
+}
+
+function update(){
+    // right key
+    if( 'ArrowRight' in keysDown ){
+        spaceshipX += 2;
+    }
+
+    // left key
+    if( 'ArrowLeft' in keysDown ){
+        spaceshipX -= 2;
+    }
+}
+
 function render(){
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(spaceshipImage, spaceshipX, spaceshipY)
@@ -47,11 +75,11 @@ to do that, call render function in main
 then call main function constantly to using animation function
 */
 function main(){
-    render();
+    update();
+    render();   // drawing
     requestAnimationFrame(main)
 }
 
 loadImage();
+setupKeyboardListener();
 main();
-
-//
