@@ -117,7 +117,7 @@ class enemy {
         this.x = generateRandomValue(0, canvas.width-64);
         this.y = 0;
         enemyList.push(this);
-    }
+    };
 
     update(){
         this.y += 1;
