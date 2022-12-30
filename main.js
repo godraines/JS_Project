@@ -58,15 +58,14 @@ let score = 0;
 // }
 
 class Bullet {
-    constructor(){
-        this.x = 0;
-        this.y = 0;
-        this.init = function(){
-            this.x = spaceshipX+18;
-            this.y = spaceshipY;
-            this.alive = true;
-            bulletList.push(this);
-        };
+    x = 0;
+    y = 0;
+
+    init(){
+        this.x = spaceshipX+18;
+        this.y = spaceshipY;
+        this.alive = true;
+        bulletList.push(this);
     };
 
     update(){
@@ -111,15 +110,14 @@ let enemyList = [];
 // }
 
 class enemy {
-    constructor(){
-        this.x = 0;
+    x = 0;
+    y = 0;
+
+    init(){
+        this.x = generateRandomValue(0, canvas.width-64);
         this.y = 0;
-        this.init = function(){
-            this.x = generateRandomValue(0, canvas.width-64);
-            this.y = 0;
-            enemyList.push(this);
-        };
-    };
+        enemyList.push(this);
+    }
 
     update(){
         this.y += 1;
